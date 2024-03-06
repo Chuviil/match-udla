@@ -1,7 +1,9 @@
-export default function Home() {
-  return (
-    <main className="overflow-hidden">
+import {Hero} from "@/components";
 
-    </main>
-  );
+export default function Home() {
+    return (
+        <main className="overflow-hidden">
+            <Hero/>
+        </main>
+    );
 }
