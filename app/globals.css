@@ -36,6 +36,10 @@
     @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
 
+.navbar__link {
+    @apply flex flex-row relative justify-center items-center py-1 px-3 hover:border-gray-100 hover:border text-white rounded-full min-w-[130px];
+}
+
 /* END: General styles */
 
 /* START: Hero styles */
@@ -48,7 +52,7 @@
 }
 
 .hero__subtitle {
-    @apply text-[27px] text-black-100 font-light mt-5;
+    @apply text-[27px] text-gray-50 font-light;
 }
 
 .hero__image-container {
@@ -185,10 +189,6 @@
 
 .footer__copyrights {
     @apply flex justify-between items-center flex-wrap mt-10 border-t border-gray-100 sm:px-16 px-6 py-10;
-}
-
-.footer__copyrights-link {
-    @apply flex-1 flex sm:justify-end justify-center max-sm:mt-4 gap-10;
 }
 
 /* END: Footer styles */
