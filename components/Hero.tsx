@@ -1,35 +1,34 @@
-"use client"
-
-import CustomButton from "./CustomButton"
 import Image from "next/image";
 
 function Hero() {
     const handleScroll = () => {
 
-    }
+    };
 
     return (
-        <div className="hero">
-            <div className="flex-1 pt-36 padding-x">
-                <h1 className="hero__title">
-                    Find, book, or rent a car – quickly and easily!
-                </h1>
-                <p className="hero__subtitle">
-                    Streamline your car rental experience with effortless booking proccess.
-                </p>
-                <CustomButton
-                    title={"Explore cars"}
-                    containerStyles={"bg-primary-blue text-white rounded-full mt-10"}
-                    handleClick={handleScroll}
+        <div className="relative w-full">
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/futbol_bg.png"
+                    alt="Fondo de personas jugando futbol"
+                    fill
+                    priority
+                    aria-disabled={true}
+                    className={"object-cover"}
                 />
             </div>
-            <div className={"hero__image-container"}>
-                <div className={"hero__image"}>
-                    <Image src={"/next.svg"} alt={"Next Logo"} fill className={"object-contain"}/>
+            <div className="hero relative z-10 text-white text-center">
+                <div className="flex-1 py-36 padding-x">
+                    <h1 className="hero__title">
+                        Descubre, reserva y juega - fácil y rápido!
+                    </h1>
+                    <p className="hero__subtitle">
+                        Simplifica tu experiencia de reserva de canchas con un proceso de reserva sencillo.
+                    </p>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Hero
+export default Hero;

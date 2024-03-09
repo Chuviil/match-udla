@@ -30,17 +30,17 @@ const Footer = () => {
                 </div>
             </div>
         </footer>*/
-        <footer className={"flex flex-col mt-5 border-t border-black-100 bg-black-200 text-white"}>
+        <footer className={"flex flex-col border-t border-black-100 bg-black-200 text-white"}>
             <div className={"flex flex-col justify-between gap-5 items-center sm:px-16 px-6 py-10"}>
                 <Image src={"/udla_logo_blanco.png"} alt={"Udla Logo"} width={236} height={105}
                        className={"object-contain"}/>
                 <div className={"flex flex-row gap-5"}>
-                    <Link href={"https://www.facebook.com/clubesudla"} target={"_blank"}>
+                    <Link href={"https://www.facebook.com/clubesudla"} target={"_blank"} aria-label={"Clubes Udla Facebook"}>
                         <div className={"rounded-full p-2 border border-white hover:bg-white hover:text-black-200"}>
                             <FaFacebookF size={16}/>
                         </div>
                     </Link>
-                    <Link href={"https://www.instagram.com/clubes_udla"} target={"_blank"}>
+                    <Link href={"https://www.instagram.com/clubes_udla"} target={"_blank"} aria-label={"Clubes Udla Instagram"}>
                         <div className={"rounded-full p-2 border border-white hover:bg-white hover:text-black-200"}>
                             <FaInstagram size={16}/>
                         </div>
