@@ -6,3 +6,14 @@ export interface CustomButtonProps {
     handleClick?: MouseEventHandler<HTMLButtonElement>;
     btnType?: "button" | "submit";
 }
+
+export interface Campus {
+    id: string;
+    nombre: string;
+    imagenURL: string;
+}
+
+export interface Cancha {
+    campusId: string;
+    tipo: "Futbol" | "Basquet" | "Volley";
+}
