@@ -21,26 +21,32 @@ export const campus: Campus[] = [
 export const canchas: Cancha[] = [
     {
         campusId: "UP",
-        tipo: "Futbol"
+        tipo: "Futbol",
+        imagenURL: "/UP_cancha_futbol.png"
     },
     {
         campusId: "ARE",
-        tipo: "Basquet"
+        tipo: "Basquet",
+        imagenURL: "/ARE_cancha.jpg"
     },
     {
         campusId: "ARE",
-        tipo: "Volley"
+        tipo: "Volley",
+        imagenURL: "/ARE_cancha.jpg"
     },
     {
         campusId: "ARE",
-        tipo: "Futbol"
+        tipo: "Futbol",
+        imagenURL: "/ARE_cancha.jpg"
     },
     {
         campusId: "GR",
-        tipo: "Basquet"
+        tipo: "Basquet",
+        imagenURL: "/GR_cancha_basquet.jpeg"
     },
     {
         campusId: "GR",
-        tipo: "Futbol"
+        tipo: "Futbol",
+        imagenURL: "/GR_cancha_futbol.jpeg"
     }
 ]
