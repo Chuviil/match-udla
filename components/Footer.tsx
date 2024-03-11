@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <footer className={"flex flex-col border-t border-black-100 bg-black-200 text-white"}>
             <div className={"flex flex-col justify-between gap-5 items-center sm:px-16 px-6 py-10"}>
-                <Image src={"/udla_logo_blanco.png"} alt={"Udla Logo"} width={236} height={105}
+                <Image src={"/logo_clubes_udla_blanco.png"} alt={"Udla Logo"} width={236} height={105}
                        className={"object-contain"}/>
                 <div className={"flex flex-row gap-5"}>
                     <Link href={"https://www.facebook.com/clubesudla"} target={"_blank"}
