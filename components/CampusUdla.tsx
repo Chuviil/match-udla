@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const CampusUdla = () => {
     return (
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 place-content-center text-white font-extrabold text-xl">
+        <div className="container p-0 mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 place-content-center text-white font-extrabold text-xl">
             {campus.map((campus) => (
                 <Link key={campus.id} href={`/canchas/${campus.id}`}>
                     <div

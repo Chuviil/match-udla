@@ -35,7 +35,7 @@ const CanchasPage = ({params}: CanchasPageProps) => {
             </div>
             <div className={"my-12 py-4 lg:py-0 lg:px-0 px-6 max-width"}>
                 <div
-                    className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 place-content-center text-white font-extrabold text-xl">
+                    className="container p-0 mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 place-content-center text-white font-extrabold text-xl">
                     {canchasDisponibles.map((cancha) => (
                         <div key={cancha.tipo} className={"relative flex flex-col gap-2"}>
                             <div
