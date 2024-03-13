@@ -23,7 +23,7 @@ export const canchas: Cancha[] = [
         id: "UP-CHF",
         campusId: "UP",
         tipo: "Futbol",
-        imagenURL: "/UP_cancha_futbol.png"
+        imagenURL: "/UP_cancha_futbol.jpg"
     },
     {
         id: "UP-CHB",
