@@ -1,4 +1,4 @@
-import {CampusUdla, Hero} from "@/components";
+import {CampusUdla, Hero} from "@/components/index";
 
 export default function Home() {
     return (

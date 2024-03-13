@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import "./globals.css";
-import {Footer, NavBar} from "@/components";
+import {Footer, NavBar} from "@/components/index";
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
     title: "Clubes | Reserva de Canchas",
@@ -18,6 +19,7 @@ export default function RootLayout({
         <NavBar/>
         {children}
         <Footer />
+        <Toaster />
         </body>
         </html>
     );

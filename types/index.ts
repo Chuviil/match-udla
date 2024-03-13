@@ -14,6 +14,7 @@ export interface Campus {
 }
 
 export interface Cancha {
+    id: string,
     campusId: "UP" | "GR" | "ARE";
     tipo: "Futbol" | "Basquet" | "Volley";
     imagenURL: string;
@@ -26,4 +27,19 @@ export interface ReservaPageProps {
     params: {
         id: "UP" | "GR" | "ARE";
     };
+}
+
+export interface Reservation {
+    id: string;
+    tipoCancha: "Futbol" | "Basquet" | "Volley";
+    campusId: "UP" | "GR" | "ARE";
+    fecha: string;
+    hora: string;
+    motivo: string;
+    usuario: string;
+}
+
+export interface LoginUserDTO {
+    email: string;
+    password: string;
 }
