@@ -1,4 +1,5 @@
 import {MouseEventHandler} from "react";
+import {Timestamp} from "@firebase/firestore-types";
 
 export interface CustomButtonProps {
     title: string;
@@ -29,14 +30,31 @@ export interface ReservaPageProps {
     };
 }
 
+export enum ReservationStatus {
+    PENDIENTE = "PENDIENTE",
+    ACEPTADA = "ACEPTADA",
+    RECHAZADA = "RECHAZADA",
+}
+
 export interface Reservation {
     id: string;
-    tipoCancha: "Futbol" | "Basquet" | "Volley";
-    campusId: "UP" | "GR" | "ARE";
-    fecha: string;
-    hora: string;
+    canchaId: string;
+    createdAt: Date;
+    email: string;
+    fechaReserva: Date;
+    horaReservaId: string;
+    idBanner: string;
     motivo: string;
-    usuario: string;
+}
+
+export interface ReservationDTO {
+    canchaId: string;
+    createdAt: Timestamp;
+    email: string;
+    fechaReserva: Timestamp;
+    horaReservaId: string;
+    idBanner: string;
+    motivo: string;
 }
 
 export interface LoginUserDTO {
