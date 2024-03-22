@@ -1,16 +1,19 @@
 import {NextResponse} from "next/server";
-import {z} from "zod";
 import {createReservation} from "@/lib/firebase/firestore";
+import {reservationSchema} from "@/schemas/reservation.schema";
 
-const reservationSchema = z.object({
-    canchaId: z.string(),
-    fechaReserva: z.coerce.date()
-        .min(new Date(new Date().setHours(0, 0, 0, 0))),
-    horaReservaId: z.string().regex(/^M(?:1[0-3]|[0-9])$/),
-    email: z.string().email().endsWith("@udla.edu.ec"),
-    idBanner: z.string().startsWith('A'),
-    motivo: z.string().max(500),
-})
+
+interface ReservationSearchParams {
+
+}
+
+export async function GET(request: Request, context: {params: ReservationSearchParams}) {
+    try {
+        return NextResponse.json({});
+    } catch (e) {
+        return NextResponse.json({}, {status: 500});
+    }
+}
 
 export async function POST(request: Request) {
     try {
