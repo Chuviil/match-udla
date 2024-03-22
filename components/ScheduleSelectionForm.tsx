@@ -12,19 +12,21 @@ import {format} from "date-fns"
 import {es} from 'date-fns/locale';
 import {Calendar} from "@/components/ui/calendar";
 import {ToggleGroup, ToggleGroupItem,} from "@/components/ui/toggle-group"
-import {horariosDisponibles} from "@/constants";
 import {toast} from "@/components/ui/use-toast"
 import {Input} from "@/components/ui/input"
 import {Textarea} from "@/components/ui/textarea";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {Skeleton} from "@/components/ui/skeleton"
+import {HorarioDTO} from "@/types";
 
 const formSchema = z.object({
     canchaId: z.string(),
     fechaReserva: z.coerce.date(),
     horaReservaId: z.string().regex(/^M(?:1[0-3]|[0-9])$/, "Necesitas seleccionar un horario para la reserva"),
     email: z.string().email().endsWith("@udla.edu.ec", {message: "Necesitas un email institucional"}),
-    idBanner: z.string().startsWith('A', {message: "Necesitas un idBanner válido"}),
+    idBanner: z.string().startsWith('A', {message: "ID Banner no válido"})
+        .min(9, {message: "ID Banner no válido"}),
     motivo: z.string({required_error: "Escribe el motivo por el que deseas reservar esta cancha"})
         .max(500, {message: "El motivo no puede exceder los 500 caracteres"}),
 });
@@ -38,11 +40,34 @@ const ScheduleSelectionForm = ({canchaId}: ScheduleSelectionFormProps) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             canchaId,
+            // fechaReserva: new Date(new Date().setDate(new Date().getDate() + 1)),
         }
     });
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isHoursLoading, setIsHoursLoading] = useState<boolean>(true);
+    const [horariosDisponibles, setHorariosDisponibles] = useState<HorarioDTO[]>([]);
     const router = useRouter();
+
+    async function refetchHours(date: Date) {
+        setIsHoursLoading(true);
+        try {
+            const response = await fetch(
+                `/api/canchas/${canchaId}/horariosDisponibilidad?fecha=${encodeURIComponent(date.toISOString())}`
+            );
+
+            if (!response.ok) {
+                throw new Error();
+            }
+
+            const result = await response.json();
+
+            setIsHoursLoading(false);
+            setHorariosDisponibles(result);
+        } catch (error) {
+            setIsHoursLoading(false);
+        }
+    }
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
         setIsLoading(true);
@@ -138,11 +163,13 @@ const ScheduleSelectionForm = ({canchaId}: ScheduleSelectionFormProps) => {
                                     <Calendar
                                         mode="single"
                                         selected={field.value}
-                                        onSelect={field.onChange}
+                                        onSelect={(date) => {
+                                            field.onChange(date)
+                                            if (date) refetchHours(date);
+                                        }
+                                        }
                                         disabled={(date) => {
-                                            const today = new Date();
-                                            today.setHours(0, 0, 0, 0);
-                                            return date < today;
+                                            return date < new Date();
                                         }}
                                         locale={es}
                                         initialFocus
@@ -160,20 +187,49 @@ const ScheduleSelectionForm = ({canchaId}: ScheduleSelectionFormProps) => {
                         <FormItem>
                             <FormLabel>Horarios de reserva</FormLabel>
                             <FormControl>
-                                <ToggleGroup
-                                    type="single"
-                                    value={field.value}
-                                    onValueChange={field.onChange}
-                                    variant={"outline"}
-                                    className={"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 justify-start"}
-                                >
-                                    {horariosDisponibles.map((horario) => (
-                                        <ToggleGroupItem key={horario.id} value={horario.id}
-                                                         aria-description={`Horario Modulo ${horario.id}`}>
-                                            {horario.inicio} -{horario.fin}
-                                        </ToggleGroupItem>
-                                    ))}
-                                </ToggleGroup>
+                                {!form.getValues("fechaReserva") ? (
+                                    <p className={"text-center text-sm"}>Selecciona una fecha para ver los horarios
+                                        disponibles</p>
+                                ) : (isHoursLoading ? (
+                                        <div
+                                            className={"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 justify-start"}>
+                                            {Array.from({length: 12}).map(() => (
+                                                <Skeleton className="w-[110px] h-9 px-3 rounded-md"/>
+                                            ))
+                                            }
+                                        </div>
+                                    ) : (
+                                        <ToggleGroup
+                                            type="single"
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            variant={"outline"}
+                                            className={"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 justify-start"}
+                                        >
+                                            {horariosDisponibles.map((horario) => {
+
+                                                    if (!horario.disponible) {
+                                                        return (
+                                                            <div key={horario.id}
+                                                                 aria-description={`Horario Modulo ${horario.id}`}
+                                                                 className={"horario-container"}
+                                                            >
+                                                                {horario.inicio} -{horario.fin}
+                                                            </div>
+                                                        )
+                                                    }
+                                                    return (
+                                                        <ToggleGroupItem key={horario.id} value={horario.id}
+                                                                         aria-description={`Horario Modulo ${horario.id}`}>
+                                                            {horario.inicio} -{horario.fin}
+                                                        </ToggleGroupItem>
+                                                    )
+                                                }
+                                            )
+                                            }
+                                        </ToggleGroup>
+                                    )
+                                )}
                             </FormControl>
                             <FormMessage/>
                         </FormItem>

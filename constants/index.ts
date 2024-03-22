@@ -124,14 +124,4 @@ export const horariosDisponibles = [
         inicio: "18:50",
         fin: "19:50",
     },
-    {
-        id: "M12",
-        inicio: "19:50",
-        fin: "20:50",
-    },
-    {
-        id: "M13",
-        inicio: "20:50",
-        fin: "21:50",
-    },
 ];
