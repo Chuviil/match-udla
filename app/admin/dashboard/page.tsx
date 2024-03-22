@@ -1,10 +1,18 @@
-import React from 'react';
+import {getReservations} from "@/lib/firebase/firestore";
+import {ReservationsTable} from "./ReservationsTable";
+import {ReservationStatus} from "@/types";
 
-const Page = () => {
+export const dynamic = "force-dynamic";
+
+const Page = async () => {
+    const reservations = await getReservations({estado: ReservationStatus.PENDIENTE});
+
     return (
-        <div className={"py-36"}>
-            <h1>DASHBOARD HERE :D</h1>
-        </div>
+        <main className={"py-36"}>
+            <div className={"container mx-auto py-10"}>
+                <ReservationsTable data={reservations}/>
+            </div>
+        </main>
     );
 };
 
