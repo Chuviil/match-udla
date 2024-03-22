@@ -45,6 +45,7 @@ export interface Reservation {
     horaReservaId: string;
     idBanner: string;
     motivo: string;
+    estado: ReservationStatus;
 }
 
 export interface ReservationDTO {
@@ -55,6 +56,25 @@ export interface ReservationDTO {
     horaReservaId: string;
     idBanner: string;
     motivo: string;
+    estado: ReservationStatus;
+}
+
+export interface Horario {
+    id: string;
+    inicio: string;
+    fin: string
+}
+
+export interface HorarioFirebaseDTO {
+    inicio: string;
+    fin: string
+}
+
+export interface HorarioDTO {
+    id: string;
+    inicio: string;
+    fin: string
+    disponible: boolean;
 }
 
 export interface LoginUserDTO {
