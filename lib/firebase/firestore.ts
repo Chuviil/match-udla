@@ -1,6 +1,6 @@
-import {addDoc, collection, deleteDoc, doc, getDocs, query, Query, updateDoc, where} from "firebase/firestore";
+import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, Query, updateDoc, where} from "firebase/firestore";
 import {db} from "./firebase";
-import {Reservation, ReservationDTO, ReservationStatus} from "@/types";
+import {Horario, HorarioFirebaseDTO, Reservation, ReservationDTO, ReservationStatus} from "@/types";
 
 export async function createReservation(data: any) {
     const docRef = await addDoc(
@@ -49,9 +49,33 @@ export async function deleteReservation(reservationId: string) {
     return reservationId;
 }
 
-export async function updateReservationStatus(reservationId: string, status: string) {
+export async function updateReservationStatus(reservationId: string, status: string): Promise<Reservation> {
     const reservationRef = doc(db, "reservas", reservationId);
     if (reservationRef) {
         await updateDoc(reservationRef, {estado: status});
     }
+
+    const reservationSnap = await getDoc(reservationRef);
+
+    const reservationData = reservationSnap.data() as ReservationDTO;
+
+    return {
+        ...reservationData,
+        id: reservationSnap.id,
+        fechaReserva: reservationData.fechaReserva.toDate(),
+        createdAt: reservationData.createdAt.toDate(),
+    }
+}
+
+export async function getHorarios(): Promise<Horario[]> {
+    let q = query(collection(db, "horarios"));
+
+    const results = await getDocs(q);
+    return results.docs.map(doc => {
+        const data = doc.data() as HorarioFirebaseDTO;
+        return {
+            ...data,
+            id: doc.id,
+        };
+    });
 }
