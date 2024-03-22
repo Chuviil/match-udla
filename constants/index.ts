@@ -3,12 +3,12 @@ import {Campus, Cancha} from "@/types";
 export const campus: Campus[] = [
     {
         id: "UP",
-        nombre: "Campus UdlaPark",
+        nombre: "UdlaPark",
         imagenURL: "/UP_display.png"
     },
     {
         id: "GR",
-        nombre: "Campus Granados",
+        nombre: "Granados",
         imagenURL: "/GR_display.png"
     },
     {
