@@ -19,6 +19,7 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {Skeleton} from "@/components/ui/skeleton"
 import {HorarioDTO} from "@/types";
+import {FaSquare, FaRegSquare} from "react-icons/fa6";
 
 const formSchema = z.object({
     canchaId: z.string(),
@@ -40,7 +41,6 @@ const ScheduleSelectionForm = ({canchaId}: ScheduleSelectionFormProps) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             canchaId,
-            // fechaReserva: new Date(new Date().setDate(new Date().getDate() + 1)),
         }
     });
 
@@ -186,6 +186,16 @@ const ScheduleSelectionForm = ({canchaId}: ScheduleSelectionFormProps) => {
                     render={({field}) => (
                         <FormItem>
                             <FormLabel>Horarios de reserva</FormLabel>
+                            <div className={"flex items-center justify-start text-sm gap-5"}>
+                                <div className={"inline-flex items-center gap-1"}>
+                                    <FaRegSquare/>
+                                    <p>Libre</p>
+                                </div>
+                                <div className={"inline-flex items-center gap-1"}>
+                                    <FaSquare className={"text-red-500"}/>
+                                    <p>Ocupado</p>
+                                </div>
+                            </div>
                             <FormControl>
                                 {!form.getValues("fechaReserva") ? (
                                     <p className={"text-center text-sm"}>Selecciona una fecha para ver los horarios
