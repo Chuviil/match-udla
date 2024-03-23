@@ -18,7 +18,7 @@ const ReservaPage = ({searchParams, params}: ReservaPageProps) => {
                                alt={`Cancha de ${canchaInfo?.tipo} portada`}
                                sizes={"(max-width: 400px), (max-width: 250px)"} className={"object-cover"} fill/>
                     </div>
-                    <p>Cancha de {canchaInfo?.tipo}</p>
+                    <p>Cancha {canchaInfo?.tipo}</p>
                 </div>
                 <div className={"flex justify-center items-center"}>
                     <ScheduleSelectionForm canchaId={canchaInfo?.id || "INV-123"}/>

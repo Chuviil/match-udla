@@ -23,43 +23,29 @@ export const canchas: Cancha[] = [
         id: "UP-CHF",
         campusId: "UP",
         tipo: "Futbol",
+        deportes: ["Futbol"],
         imagenURL: "/UP_cancha_futbol.jpg"
     },
     {
-        id: "UP-CHB",
+        id: "ARE-CHM",
         campusId: "ARE",
-        tipo: "Basquet",
+        tipo: "Multiple",
+        deportes: ["Futbol", "Basquet", "Volley"],
         imagenURL: "/ARE_cancha.jpg"
     },
     {
-        id: "UP-CHV",
-        campusId: "ARE",
-        tipo: "Volley",
-        imagenURL: "/ARE_cancha.jpg"
+        id: "GR-CHB",
+        campusId: "GR",
+        tipo: "Basquet/Volley",
+        deportes: ["Basquet", "Volley"],
+        imagenURL: "/GR_cancha_basquet.jpeg"
     },
     {
         id: "GR-CHF",
-        campusId: "ARE",
-        tipo: "Futbol",
-        imagenURL: "/ARE_cancha.jpg"
-    },
-    {
-        id: "GR-CHB",
-        campusId: "GR",
-        tipo: "Basquet",
-        imagenURL: "/GR_cancha_basquet.jpeg"
-    },
-    {
-        id: "GR-CHV",
         campusId: "GR",
         tipo: "Futbol",
+        deportes: ["Futbol"],
         imagenURL: "/GR_cancha_futbol.jpeg"
-    },
-    {
-        id: "GR-CHB",
-        campusId: "GR",
-        tipo: "Volley",
-        imagenURL: "/GR_cancha_basquet.jpeg"
     },
 ]
 
