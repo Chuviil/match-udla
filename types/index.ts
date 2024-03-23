@@ -17,7 +17,8 @@ export interface Campus {
 export interface Cancha {
     id: string,
     campusId: "UP" | "GR" | "ARE";
-    tipo: "Futbol" | "Basquet" | "Volley";
+    tipo: string;
+    deportes: string[];
     imagenURL: string;
 }
 
