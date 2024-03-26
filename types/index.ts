@@ -18,8 +18,14 @@ export interface Cancha {
     id: string,
     campusId: "UP" | "GR" | "ARE";
     tipo: string;
-    deportes: string[];
+    deportes: TipoCancha[];
     imagenURL: string;
+}
+
+export enum TipoCancha {
+    FUTBOL = "Futbol",
+    BASQUET = "Basquet",
+    VOLLEY = "Volley",
 }
 
 export interface ReservaPageProps {

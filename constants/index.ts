@@ -1,4 +1,4 @@
-import {Campus, Cancha} from "@/types";
+import {Campus, Cancha, TipoCancha} from "@/types";
 
 export const campus: Campus[] = [
     {
@@ -23,28 +23,28 @@ export const canchas: Cancha[] = [
         id: "UP-CHF",
         campusId: "UP",
         tipo: "Futbol",
-        deportes: ["Futbol"],
+        deportes: [TipoCancha.FUTBOL],
         imagenURL: "/UP_cancha_futbol.jpg"
     },
     {
         id: "ARE-CHM",
         campusId: "ARE",
         tipo: "Multiple",
-        deportes: ["Futbol", "Basquet", "Volley"],
+        deportes: [TipoCancha.FUTBOL, TipoCancha.BASQUET, TipoCancha.VOLLEY],
         imagenURL: "/ARE_cancha.jpg"
     },
     {
         id: "GR-CHB",
         campusId: "GR",
         tipo: "Basquet/Volley",
-        deportes: ["Basquet", "Volley"],
+        deportes: [TipoCancha.BASQUET, TipoCancha.VOLLEY],
         imagenURL: "/GR_cancha_basquet.jpeg"
     },
     {
         id: "GR-CHF",
         campusId: "GR",
         tipo: "Futbol",
-        deportes: ["Futbol"],
+        deportes: [TipoCancha.FUTBOL],
         imagenURL: "/GR_cancha_futbol.jpeg"
     },
 ]
@@ -111,3 +111,22 @@ export const horariosDisponibles = [
         fin: "19:50",
     },
 ];
+
+export const tiposCancha = [
+    {
+        id: "Futbol",
+        nombre: "Futbol"
+    },
+    {
+        id: "Basquet",
+        nombre: "Basquet"
+    },
+    {
+        id: "Volley",
+        nombre: "Volley"
+    },
+    {
+        id: "Multiple",
+        nombre: "Multiple"
+    }
+]
