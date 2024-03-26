@@ -1,14 +1,14 @@
-import {Campus, Cancha} from "@/types";
+import {Campus, Cancha, TipoCancha} from "@/types";
 
 export const campus: Campus[] = [
     {
         id: "UP",
-        nombre: "Campus UdlaPark",
+        nombre: "UdlaPark",
         imagenURL: "/UP_display.png"
     },
     {
         id: "GR",
-        nombre: "Campus Granados",
+        nombre: "Granados",
         imagenURL: "/GR_display.png"
     },
     {
@@ -23,43 +23,29 @@ export const canchas: Cancha[] = [
         id: "UP-CHF",
         campusId: "UP",
         tipo: "Futbol",
+        deportes: [TipoCancha.FUTBOL],
         imagenURL: "/UP_cancha_futbol.jpg"
     },
     {
-        id: "UP-CHB",
+        id: "ARE-CHM",
         campusId: "ARE",
-        tipo: "Basquet",
+        tipo: "Multiple",
+        deportes: [TipoCancha.FUTBOL, TipoCancha.BASQUET, TipoCancha.VOLLEY],
         imagenURL: "/ARE_cancha.jpg"
     },
     {
-        id: "UP-CHV",
-        campusId: "ARE",
-        tipo: "Volley",
-        imagenURL: "/ARE_cancha.jpg"
+        id: "GR-CHB",
+        campusId: "GR",
+        tipo: "Basquet/Volley",
+        deportes: [TipoCancha.BASQUET, TipoCancha.VOLLEY],
+        imagenURL: "/GR_cancha_basquet.jpeg"
     },
     {
         id: "GR-CHF",
-        campusId: "ARE",
-        tipo: "Futbol",
-        imagenURL: "/ARE_cancha.jpg"
-    },
-    {
-        id: "GR-CHB",
-        campusId: "GR",
-        tipo: "Basquet",
-        imagenURL: "/GR_cancha_basquet.jpeg"
-    },
-    {
-        id: "GR-CHV",
         campusId: "GR",
         tipo: "Futbol",
+        deportes: [TipoCancha.FUTBOL],
         imagenURL: "/GR_cancha_futbol.jpeg"
-    },
-    {
-        id: "GR-CHB",
-        campusId: "GR",
-        tipo: "Volley",
-        imagenURL: "/GR_cancha_basquet.jpeg"
     },
 ]
 
@@ -124,14 +110,23 @@ export const horariosDisponibles = [
         inicio: "18:50",
         fin: "19:50",
     },
-    {
-        id: "M12",
-        inicio: "19:50",
-        fin: "20:50",
-    },
-    {
-        id: "M13",
-        inicio: "20:50",
-        fin: "21:50",
-    },
 ];
+
+export const tiposCancha = [
+    {
+        id: "Futbol",
+        nombre: "Futbol"
+    },
+    {
+        id: "Basquet",
+        nombre: "Basquet"
+    },
+    {
+        id: "Volley",
+        nombre: "Volley"
+    },
+    {
+        id: "Multiple",
+        nombre: "Multiple"
+    }
+]

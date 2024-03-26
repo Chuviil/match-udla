@@ -44,7 +44,7 @@ const CanchasPage = ({params}: CanchasPageProps) => {
                                        alt={`${campusInfo?.nombre} Cancha de ${cancha.tipo} portada`} fill
                                        sizes={"(max-width: 940px), (max-width: 307px)"}
                                        className={"object-cover absolute inset-0 -z-10 brightness-75"}/>
-                                <p>Canchas {cancha.tipo}</p>
+                                <p>Cancha {cancha.tipo}</p>
                             </div>
                             <Link className={"bg-black-100 rounded-lg py-2 w-full text-center"}
                                   href={`/canchas/${campusInfo?.id}/reservar?cancha=${cancha.tipo}`}>

@@ -20,7 +20,7 @@ function Hero() {
             <div className="hero relative z-10 text-white text-center">
                 <div className="flex-1 py-36 padding-x">
                     <h1 className="hero__title">
-                        Descubre, reserva y juega - fácil y rápido!
+                        ¡Descubre, reserva y juega - fácil y rápido!
                     </h1>
                     <p className="hero__subtitle">
                         Simplifica tu experiencia de reserva de canchas con un proceso de reserva sencillo.
