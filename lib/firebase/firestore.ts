@@ -1,6 +1,18 @@
-import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, Query, updateDoc, where} from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    orderBy,
+    query,
+    Query,
+    updateDoc,
+    where
+} from "firebase/firestore";
 import {db} from "./firebase";
-import {Horario, HorarioFirebaseDTO, Reservation, ReservationDTO, ReservationStatus} from "@/types";
+import {Horario, HorarioFirebaseDTO, Reservation, ReservationDTO, ReservationStatus, TipoCancha} from "@/types";
 
 export async function createReservation(data: any) {
     const docRef = await addDoc(
@@ -11,16 +23,24 @@ export async function createReservation(data: any) {
 }
 
 interface ReservationQueryFilters {
+    canchaId?: string,
     estado?: ReservationStatus,
     date?: Date
+    tipoCancha?: TipoCancha
 }
 
-function applyQueryFilters(q: Query, {date, estado}: ReservationQueryFilters): Query {
+function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId}: ReservationQueryFilters): Query {
+    if (canchaId) {
+        q = query(q, where("canchaId", "==", canchaId));
+    }
     if (date) {
         q = query(q, where("fechaReserva", "==", date));
     }
     if (estado) {
         q = query(q, where("estado", "==", estado));
+    }
+    if (tipoCancha) {
+        q = query(q, where("tipoCancha", "==", tipoCancha));
     }
     return q;
 }
@@ -68,7 +88,7 @@ export async function updateReservationStatus(reservationId: string, status: str
 }
 
 export async function getHorarios(): Promise<Horario[]> {
-    let q = query(collection(db, "horarios"));
+    let q = query(collection(db, "horarios"), orderBy("inicio"));
 
     const results = await getDocs(q);
     return results.docs.map(doc => {
