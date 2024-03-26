@@ -33,7 +33,7 @@ interface DataTableProps {
 export function ReservationsTable({data}: DataTableProps) {
     const router = useRouter();
 
-    const handleReservationAccept = async (reservationId: string) => {
+    const handleReservationStatus = async (reservationId: string, estado: ReservationStatus) => {
         try {
             const response = await fetch(`/api/reservas/${reservationId}/estado`, {
                 method: 'PATCH',
@@ -107,9 +107,16 @@ export function ReservationsTable({data}: DataTableProps) {
                                     <DialogClose asChild>
                                         <Button type={"button"} variant={"outline"}>Cancelar</Button>
                                     </DialogClose>
-                                    <Button type={"button"} variant={"destructive"}>Rechazar</Button>
+                                    <Button
+                                        type={"button"}
+                                        variant={"destructive"}
+                                        onClick={() => handleReservationStatus(reservation.id, ReservationStatus.RECHAZADA)}>
+                                        Rechazar
+                                    </Button>
                                     <Button type={"button"}
-                                            onClick={() => handleReservationAccept(reservation.id)}>Aceptar</Button>
+                                            onClick={() => handleReservationStatus(reservation.id, ReservationStatus.ACEPTADA)}>
+                                        Aceptar
+                                    </Button>
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>

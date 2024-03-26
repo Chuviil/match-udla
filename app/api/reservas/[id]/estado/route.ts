@@ -26,8 +26,8 @@ export async function PATCH(request: Request, context: { params: { id?: string }
         const updatedReservation = await updateReservationStatus(id, parsedReservationStatus.data.estado);
 
         await resend.emails.send({
-            from: 'Acme <onboarding@resend.dev>',
-            to: [/*session.user!.email!, updatedReservation.email*/'josueq12@gmail.com'],
+            from: 'Chuviii <chuviii@chuvblocks.com>',
+            to: [session.user!.email!, updatedReservation.email],
             subject: 'Actualización de estado de reserva',
             react: EmailTemplate({ reserva: updatedReservation }),
             text: '',

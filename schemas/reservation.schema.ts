@@ -1,8 +1,9 @@
 import {z} from "zod";
-import {ReservationStatus} from "@/types";
+import {ReservationStatus, TipoCancha} from "@/types";
 
 export const reservationSchema = z.object({
     canchaId: z.string(),
+    tipoCancha: z.nativeEnum(TipoCancha),
     fechaReserva: z.coerce.date()
         .min(new Date(new Date().setHours(0, 0, 0, 0))),
     horaReservaId: z.string().regex(/^M(?:1[0-3]|[0-9])$/),
