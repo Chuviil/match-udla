@@ -26,11 +26,11 @@ const formSchema = z.object({
     canchaId: z.string(),
     tipoCancha: z.string(),
     fechaReserva: z.coerce.date(),
-    horaReservaId: z.string().regex(/^M(?:1[0-3]|[0-9])$/, "Necesitas seleccionar un horario para la reserva"),
+    horaReservaId: z.string().regex(/^M(?:1[0-3]|[0-9])$/, "Para completar la reserva, debes seleccionar un horario"),
     email: z.string().email().endsWith("@udla.edu.ec", {message: "Necesitas un email institucional"}),
-    idBanner: z.string().startsWith('A', {message: "ID Banner no válido"})
-        .min(9, {message: "ID Banner no válido"}),
-    motivo: z.string({required_error: "Escribe el motivo por el que deseas reservar esta cancha"})
+    idBanner: z.string().startsWith('A', {message: "Para completar la reserva, debes proporcionar un ID Banner válido."})
+        .min(9, {message: "Para completar la reserva, debes proporcionar un ID Banner válido."}),
+    motivo: z.string({required_error: "Indica el motivo por el que deseas reservar esta cancha"})
         .max(500, {message: "El motivo no puede exceder los 500 caracteres"}),
 });
 
@@ -95,7 +95,7 @@ const ScheduleSelectionForm = ({canchaId, tiposCancha}: ScheduleSelectionFormPro
             const result = await response.json();
 
             toast({
-                title: "Reserva Exitosa!",
+                title: "¡Felicidades! Tu reserva se ha completado de manera exitosa",
                 description: `ID de la reservación: ${result.id}`
             });
 
@@ -103,7 +103,7 @@ const ScheduleSelectionForm = ({canchaId, tiposCancha}: ScheduleSelectionFormPro
         } catch (error) {
             toast({
                 title: "Error!",
-                description: 'Algo salió mal, por favor intenta de nuevo.',
+                description: '¡Lo siento!,algo salió mal. Por favor, inténtalo de nuevo.',
                 variant: "destructive"
             });
         } finally {
@@ -276,7 +276,7 @@ const ScheduleSelectionForm = ({canchaId, tiposCancha}: ScheduleSelectionFormPro
                             </div>
                             <FormControl>
                                 {!form.getValues("fechaReserva") || !form.getValues("tipoCancha") ? (
-                                    <p className={"text-center text-sm"}>Selecciona una tipo de cancha y fecha para ver los horarios
+                                    <p className={"text-center text-sm"}>Selecciona un tipo de cancha y fecha para ver los horarios
                                         disponibles</p>
                                 ) : (isHoursLoading ? (
                                         <div
