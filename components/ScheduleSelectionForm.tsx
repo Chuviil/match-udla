@@ -92,11 +92,9 @@ const ScheduleSelectionForm = ({canchaId, tiposCancha}: ScheduleSelectionFormPro
                 throw new Error();
             }
 
-            const result = await response.json();
-
             toast({
-                title: "¡Felicidades! Tu reserva se ha completado de manera exitosa",
-                description: `ID de la reservación: ${result.id}`
+                title: "¡Felicidades! Tu solicitud de reserva fue exitosa.",
+                description: `Pronto recibirás un correo indicando el estado de tu reserva.`
             });
 
             router.push("/");
