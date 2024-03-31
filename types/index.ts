@@ -23,14 +23,14 @@ export interface Cancha {
 }
 
 export enum TipoCancha {
-    FUTBOL = "Futbol",
-    BASQUET = "Basquet",
-    VOLLEY = "Volley",
+    FUTBOL = "Fútbol",
+    BASQUET = "Básket",
+    VOLLEY = "Vóley",
 }
 
 export interface ReservaPageProps {
     searchParams: {
-        cancha: "Futbol" | "Basquet" | "Volley";
+        cancha: "Fútbol" | "Básket" | "Vóley";
     };
     params: {
         id: "UP" | "GR" | "ARE";
