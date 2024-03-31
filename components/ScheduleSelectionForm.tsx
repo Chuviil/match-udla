@@ -28,8 +28,7 @@ const formSchema = z.object({
     fechaReserva: z.coerce.date(),
     horaReservaId: z.string().regex(/^M(?:1[0-3]|[0-9])$/, "Para completar la reserva, debes seleccionar un horario"),
     email: z.string().email().endsWith("@udla.edu.ec", {message: "Necesitas un email institucional"}),
-    idBanner: z.string().startsWith('A', {message: "Para completar la reserva, debes proporcionar un ID Banner válido."})
-        .min(9, {message: "Para completar la reserva, debes proporcionar un ID Banner válido."}),
+    idBanner: z.string().regex(/^A\d{8}$/, {message: "Para completar la reserva, debes proporcionar un ID Banner válido."}),
     motivo: z.string({required_error: "Indica el motivo por el que deseas reservar esta cancha"})
         .max(500, {message: "El motivo no puede exceder los 500 caracteres"}),
 });
