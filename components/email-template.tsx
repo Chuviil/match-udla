@@ -13,17 +13,13 @@ import {
 import * as React from "react";
 import {Reservation} from "@/types";
 
-interface KoalaWelcomeEmailProps {
+interface ReservationStatusEmailProps {
     reserva: Reservation;
 }
 
-const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "";
-
 export const EmailTemplate = ({
                                        reserva
-                                  }: KoalaWelcomeEmailProps) => (
+                                  }: ReservationStatusEmailProps) => (
     <Html>
         <Head />
         <Preview>
@@ -38,13 +34,12 @@ export const EmailTemplate = ({
                     alt="UDLA clubes"
                     style={logo}
                 />
-                <Text style={paragraph}>Estimad/a Estudiante</Text>
+                <Text style={paragraph}>Estimado/a Estudiante</Text>
                 <Text style={paragraph}>
-                    Le informamos que su solicitud de reserva para el día [Fecha] a las [Hora] ha sido [Estado de la Reserva].
+                    Le informamos que su solicitud de reserva para el día {reserva.fechaReserva.toLocaleDateString()} en el horario de {reserva.horaReserva} ha sido {reserva.estado}.
                     Gracias por utilizar el servicio de canchas de la UDLA.
 
-                    Si tiene alguna pregunta o sugerencia, puede ponerse en contacto con David Flores a través de [correo de contacto].
-
+                    Si tiene alguna pregunta o sugerencia, puede ponerse en contacto con David Flores a través de <a href={"mailto:david.flores@udla.edu.ec"}>david.flores@udla.edu.ec</a>.
                 </Text>
                 <Section style={btnContainer}>
                     <Button style={button} href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
@@ -60,7 +55,7 @@ export const EmailTemplate = ({
                 <Text style={footer}>
                     Universidad de Las Américas - Ecuador
                     Campus UDLA Park
-                    Redondel del Ciclista, Antigua Vía a Nayó
+                    Redondel del Ciclista, Antigua Vía a Nayón
                 </Text>
             </Container>
         </Body>

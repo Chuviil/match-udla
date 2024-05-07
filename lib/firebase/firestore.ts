@@ -118,3 +118,18 @@ export async function getHorarios(): Promise<Horario[]> {
         };
     });
 }
+
+export async function getHorario(id: string): Promise<Horario> {
+    const docRef = doc(db, "horarios", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        const data = docSnap.data() as HorarioFirebaseDTO;
+        return {
+            ...data,
+            id: docSnap.id,
+        };
+    } else {
+        throw new Error(`No horario found with id: ${id}`);
+    }
+}
