@@ -72,7 +72,7 @@ export function ReservationsTable({data}: DataTableProps) {
                 header: "Fecha de Reserva",
                 cell: ({row}) => {
                     const date = new Date(row.getValue("fechaReserva"));
-                    return date.toLocaleDateString();
+                    return date.toLocaleDateString('es-EC');
                 }
             },
             {

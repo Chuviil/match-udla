@@ -26,10 +26,11 @@ interface ReservationQueryFilters {
     canchaId?: string,
     estado?: ReservationStatus,
     date?: Date
-    tipoCancha?: TipoCancha
+    tipoCancha?: TipoCancha,
+    orderByFecha?: boolean,
 }
 
-function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId}: ReservationQueryFilters): Query {
+function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId, orderByFecha}: ReservationQueryFilters): Query {
     if (canchaId) {
         q = query(q, where("canchaId", "==", canchaId));
     }
@@ -41,6 +42,9 @@ function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId}: Reser
     }
     if (tipoCancha) {
         q = query(q, where("tipoCancha", "==", tipoCancha));
+    }
+    if (orderByFecha) {
+        q = query(q, orderBy("fechaReserva"));
     }
     return q;
 }

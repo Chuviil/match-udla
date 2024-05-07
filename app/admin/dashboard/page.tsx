@@ -5,7 +5,7 @@ import {ReservationStatus} from "@/types";
 export const dynamic = "force-dynamic";
 
 const Page = async () => {
-    const reservations = await getReservations({estado: ReservationStatus.PENDIENTE});
+    const reservations = await getReservations({estado: ReservationStatus.PENDIENTE, orderByFecha: true});
 
     return (
         <main className={"py-36"}>
