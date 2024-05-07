@@ -50,20 +50,35 @@ function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId, orderB
 }
 
 export async function getReservations(filters?: ReservationQueryFilters): Promise<Reservation[]> {
-    let q = query(collection(db, "reservas"));
+    let qReservas = query(collection(db, "reservas"));
+    let qHorarios = query(collection(db, "horarios"));
 
     if (filters) {
-        q = applyQueryFilters(q, filters)
+        qReservas = applyQueryFilters(qReservas, filters)
     }
 
-    const results = await getDocs(q);
-    return results.docs.map(doc => {
+    const [reservasResults, horariosResults] = await Promise.all([
+        getDocs(qReservas),
+        getDocs(qHorarios)
+    ]);
+
+    const horarios = horariosResults.docs.map(doc => {
+        const data = doc.data() as Horario;
+        return {
+            ...data,
+            id: doc.id,
+        };
+    });
+
+    return reservasResults.docs.map(doc => {
         const data = doc.data() as ReservationDTO;
+        const horario = horarios.find(h => h.id === data.horaReservaId);
         return {
             ...data,
             id: doc.id,
             createdAt: data.createdAt.toDate(),
             fechaReserva: data.fechaReserva.toDate(),
+            horaReserva: horario ? `${horario.inicio} - ${horario.fin}` : 'N/A',
         };
     });
 }

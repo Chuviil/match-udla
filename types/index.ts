@@ -50,6 +50,7 @@ export interface Reservation {
     email: string;
     fechaReserva: Date;
     horaReservaId: string;
+    horaReserva?: string;
     idBanner: string;
     motivo: string;
     estado: ReservationStatus;
