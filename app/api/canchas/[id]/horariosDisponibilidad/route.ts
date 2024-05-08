@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {getHorarios, getReservations} from "@/lib/firebase/firestore";
-import {TipoCancha} from "@/types";
+import {ReservationStatus, TipoCancha} from "@/types";
 
 export async function GET(request: NextRequest, context: { params: { id?: string } }) {
     try {
@@ -17,6 +17,7 @@ export async function GET(request: NextRequest, context: { params: { id?: string
         const horariosDisponibilidad = horarios.map(horario => ({
             ...horario,
             disponible: !reservations.some(reservation => reservation.horaReservaId === horario.id),
+            clubReserva: reservations.some(reservation => reservation.horaReservaId === horario.id && reservation.estado == ReservationStatus.CLUB)
         }));
 
         return NextResponse.json(horariosDisponibilidad);

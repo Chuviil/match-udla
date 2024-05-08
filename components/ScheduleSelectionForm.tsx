@@ -273,7 +273,8 @@ const ScheduleSelectionForm = ({canchaId, tiposCancha}: ScheduleSelectionFormPro
                             </div>
                             <FormControl>
                                 {!form.getValues("fechaReserva") || !form.getValues("tipoCancha") ? (
-                                    <p className={"text-center text-sm"}>Selecciona un tipo de cancha y fecha para ver los horarios
+                                    <p className={"text-center text-sm"}>Selecciona un tipo de cancha y fecha para ver
+                                        los horarios
                                         disponibles</p>
                                 ) : (isHoursLoading ? (
                                         <div
@@ -292,12 +293,21 @@ const ScheduleSelectionForm = ({canchaId, tiposCancha}: ScheduleSelectionFormPro
                                             className={"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 justify-start"}
                                         >
                                             {horariosDisponibles.map((horario) => {
-
+                                                    if (horario.clubReserva) {
+                                                        return (
+                                                            <div key={horario.id}
+                                                                 aria-description={`Horario Modulo ${horario.id}`}
+                                                                 className={"horarioC-container"}
+                                                            >
+                                                                {horario.inicio} -{horario.fin}
+                                                            </div>
+                                                        )
+                                                    }
                                                     if (!horario.disponible) {
                                                         return (
                                                             <div key={horario.id}
                                                                  aria-description={`Horario Modulo ${horario.id}`}
-                                                                 className={"horario-container"}
+                                                                 className={"horarioN-container"}
                                                             >
                                                                 {horario.inicio} -{horario.fin}
                                                             </div>

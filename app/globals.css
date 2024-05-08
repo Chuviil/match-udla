@@ -298,8 +298,11 @@
     @apply cursor-default select-none py-2 pl-10 pr-4;
 }
 
-.horario-container {
+.horarioN-container {
     @apply inline-flex items-center justify-center rounded-md text-sm font-medium outline-none border border-input bg-red-500 text-white shadow-sm h-9 px-3;
 }
 
+.horarioC-container {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium outline-none border border-input bg-blue-500 text-white shadow-sm h-9 px-3;
+}
 /* END: search manufacturer styles */
