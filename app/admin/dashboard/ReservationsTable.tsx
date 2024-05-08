@@ -72,11 +72,11 @@ export function ReservationsTable({data}: DataTableProps) {
                 header: "Fecha de Reserva",
                 cell: ({row}) => {
                     const date = new Date(row.getValue("fechaReserva"));
-                    return date.toLocaleDateString();
+                    return date.toLocaleDateString('es-EC');
                 }
             },
             {
-                accessorKey: "horaReservaId",
+                accessorKey: "horaReserva",
                 header: "Hora de Reserva",
             },
             {
@@ -98,7 +98,7 @@ export function ReservationsTable({data}: DataTableProps) {
                                         <strong className={"font-bold"}>Fecha de Reserva</strong><br/>
                                         <span>{reservation.fechaReserva.toLocaleDateString()}</span><br/>
                                         <strong className={"font-bold"}>Hora de Reserva</strong><br/>
-                                        <span>{reservation.horaReservaId}</span><br/>
+                                        <span>{reservation.horaReserva}</span><br/>
                                         <strong className={"font-bold text-justify"}>Motivo</strong><br/>
                                         <span>{reservation.motivo}</span>
                                     </DialogDescription>

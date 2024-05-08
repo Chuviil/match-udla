@@ -26,10 +26,11 @@ interface ReservationQueryFilters {
     canchaId?: string,
     estado?: ReservationStatus,
     date?: Date
-    tipoCancha?: TipoCancha
+    tipoCancha?: TipoCancha,
+    orderByFecha?: boolean,
 }
 
-function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId}: ReservationQueryFilters): Query {
+function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId, orderByFecha}: ReservationQueryFilters): Query {
     if (canchaId) {
         q = query(q, where("canchaId", "==", canchaId));
     }
@@ -42,24 +43,42 @@ function applyQueryFilters(q: Query, {date, estado, tipoCancha, canchaId}: Reser
     if (tipoCancha) {
         q = query(q, where("tipoCancha", "==", tipoCancha));
     }
+    if (orderByFecha) {
+        q = query(q, orderBy("fechaReserva"));
+    }
     return q;
 }
 
 export async function getReservations(filters?: ReservationQueryFilters): Promise<Reservation[]> {
-    let q = query(collection(db, "reservas"));
+    let qReservas = query(collection(db, "reservas"));
+    let qHorarios = query(collection(db, "horarios"));
 
     if (filters) {
-        q = applyQueryFilters(q, filters)
+        qReservas = applyQueryFilters(qReservas, filters)
     }
 
-    const results = await getDocs(q);
-    return results.docs.map(doc => {
+    const [reservasResults, horariosResults] = await Promise.all([
+        getDocs(qReservas),
+        getDocs(qHorarios)
+    ]);
+
+    const horarios = horariosResults.docs.map(doc => {
+        const data = doc.data() as Horario;
+        return {
+            ...data,
+            id: doc.id,
+        };
+    });
+
+    return reservasResults.docs.map(doc => {
         const data = doc.data() as ReservationDTO;
+        const horario = horarios.find(h => h.id === data.horaReservaId);
         return {
             ...data,
             id: doc.id,
             createdAt: data.createdAt.toDate(),
             fechaReserva: data.fechaReserva.toDate(),
+            horaReserva: horario ? `${horario.inicio} - ${horario.fin}` : 'N/A',
         };
     });
 }
@@ -98,4 +117,19 @@ export async function getHorarios(): Promise<Horario[]> {
             id: doc.id,
         };
     });
+}
+
+export async function getHorario(id: string): Promise<Horario> {
+    const docRef = doc(db, "horarios", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        const data = docSnap.data() as HorarioFirebaseDTO;
+        return {
+            ...data,
+            id: docSnap.id,
+        };
+    } else {
+        throw new Error(`No horario found with id: ${id}`);
+    }
 }
