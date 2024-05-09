@@ -41,6 +41,7 @@ export enum ReservationStatus {
     PENDIENTE = "PENDIENTE",
     ACEPTADA = "ACEPTADA",
     RECHAZADA = "RECHAZADA",
+    CLUB = "CLUB",
 }
 
 export interface Reservation {
@@ -83,6 +84,8 @@ export interface HorarioDTO {
     inicio: string;
     fin: string
     disponible: boolean;
+    clubReserva: boolean;
+    motivo: string;
 }
 
 export interface LoginUserDTO {
