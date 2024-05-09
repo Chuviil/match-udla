@@ -21,6 +21,11 @@ import {Skeleton} from "@/components/ui/skeleton"
 import {HorarioDTO, TipoCancha} from "@/types";
 import {FaCheck, FaRegSquare, FaSort, FaSquare} from "react-icons/fa6";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/components/ui/command"
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 const formSchema = z.object({
     canchaId: z.string(),
@@ -295,12 +300,26 @@ const ScheduleSelectionForm = ({canchaId, tiposCancha}: ScheduleSelectionFormPro
                                             {horariosDisponibles.map((horario) => {
                                                     if (horario.clubReserva) {
                                                         return (
-                                                            <div key={horario.id}
-                                                                 aria-description={`Horario Modulo ${horario.id}`}
-                                                                 className={"horarioC-container"}
-                                                            >
-                                                                {horario.inicio} -{horario.fin}
-                                                            </div>
+                                                        <HoverCard key={horario.id}>
+                                                            <HoverCardTrigger asChild>
+                                                                <div
+                                                                     aria-description={`Horario Modulo ${horario.id}`}
+                                                                     className={"horarioC-container"}
+                                                                >
+                                                                    {horario.inicio} -{horario.fin}
+                                                                </div>
+                                                            </HoverCardTrigger>
+                                                            <HoverCardContent className="w-50">
+                                                                <div className="flex justify-between space-x-4">
+                                                                    <div className="space-y-1">
+                                                                        <h4 className="text-sm font-semibold">Reserva por CLUB</h4>
+                                                                        <p className="text-sm">
+                                                                            {horario.motivo}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </HoverCardContent>
+                                                        </HoverCard>
                                                         )
                                                     }
                                                     if (!horario.disponible) {

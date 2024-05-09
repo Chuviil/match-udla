@@ -85,6 +85,7 @@ export interface HorarioDTO {
     fin: string
     disponible: boolean;
     clubReserva: boolean;
+    motivo: string;
 }
 
 export interface LoginUserDTO {

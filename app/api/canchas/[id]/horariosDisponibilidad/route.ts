@@ -14,11 +14,15 @@ export async function GET(request: NextRequest, context: { params: { id?: string
         const reservations = await getReservations({date: new Date(date), canchaId, tipoCancha});
         const horarios = await getHorarios();
 
-        const horariosDisponibilidad = horarios.map(horario => ({
-            ...horario,
-            disponible: !reservations.some(reservation => reservation.horaReservaId === horario.id),
-            clubReserva: reservations.some(reservation => reservation.horaReservaId === horario.id && reservation.estado == ReservationStatus.CLUB)
-        }));
+        const horariosDisponibilidad = horarios.map(horario => {
+            const matchingReservation = reservations.find(reservation => reservation.horaReservaId === horario.id);
+            return {
+                ...horario,
+                disponible: !matchingReservation,
+                clubReserva: matchingReservation && matchingReservation.estado == ReservationStatus.CLUB,
+                motivo: matchingReservation ? matchingReservation.motivo : null
+            };
+        });
 
         return NextResponse.json(horariosDisponibilidad);
     } catch (e) {
