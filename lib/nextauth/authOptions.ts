@@ -45,6 +45,7 @@ export const authOptions: NextAuthOptions = {
             }
         })
     ],
+    secret: process.env.NEXTAUTH_SECRET!,
     callbacks: {
         async session({ session, token, user }) {
             // Attach user id and provider to session
