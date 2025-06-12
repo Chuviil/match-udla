@@ -1,5 +1,5 @@
 import {NextResponse} from "next/server";
-import {createReservation} from "@/lib/firebase/firestore";
+import {createReservation, getReservations} from "@/lib/firebase/firestore";
 import {reservationSchema} from "@/schemas/reservation.schema";
 
 
@@ -9,7 +9,8 @@ interface ReservationSearchParams {
 
 export async function GET(request: Request, context: {params: ReservationSearchParams}) {
     try {
-        return NextResponse.json({});
+        const reservations = await getReservations();
+        return NextResponse.json(reservations);
     } catch (e) {
         return NextResponse.json({}, {status: 500});
     }
